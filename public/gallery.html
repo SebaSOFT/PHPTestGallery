@@ -118,27 +118,32 @@
     <div id="upload" class="container">
         <h3 class="text-center">Photo Upload</h3>
         <p class="text-center"><em>Fill our great gallery with memories of your life!</em></p>
-        <form enctype="multipart/form-data" action="__URL__" method="POST">
+        <form if="submitForm" enctype="multipart/form-data" action="__URL__" method="POST">
             <div class="row justify-content-center">
                 <div class="col-md-8 ">
                     <div class="row">
-                        <div class="col-sm-6 form-group">
+                        <div class="col-sm-8 form-group">
                             <input class="form-control" id="photofile" name="photofile" type="file"
                                    accept=".jpg,.jpeg,.png,image/jpeg,image/png" required/>
                         </div>
-                        <div class="col-sm-6 form-group">
+                        <div class="col-sm-4 form-group">
                             <input type="hidden" name="MAX_FILE_SIZE" value="2048000"/>
+                            <small>
+                                <strong>Format:</strong> *.png, *.jpg, *.jpeg<br/>
+                                <strong>Max Size:</strong> 2 MB
+                            </small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 form-group">
-                        <textarea class="form-control" id="description" name="description" placeholder="Description"
-                                  rows="5" maxlength="300" required></textarea>
+                        <textarea class="form-control" id="photodesc" name="photodesc" placeholder="Description"
+                                  rows="5" maxlength="300"></textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <button class="btn pull-right" type="submit">Upload Photo</button>
+                            <button id="sendImageBtn" class="btn btn-primary float-right" type="button">Upload Photo
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -207,6 +212,38 @@
 
         refreshGallery();
 
+        // Form submit
+        $('#sendImageBtn').on('click', function (e) {
+            var validForm = $('#photofile')[0].checkValidity();
+            var fileSize = $('#photofile')[0].files[0].size;
+            var tooBig = (fileSize > 2000000);
+            var descLength = $("#photodesc").val().length;
+            var descBig = (descLength > 300);
+
+            if (validForm && !tooBig && !descBig) {
+                var data = new FormData($('#submitForm')[0]);
+                $.ajax({
+                    url: '/?p=UploadImage',
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: 'POST',
+                    success: function (data) {
+                        alert(data);
+                    }
+                });
+            } else {
+                if(tooBig){
+                    showAlertError("Photo Size exceeds 2MB!");
+                }else if(descBig){
+                    showAlertError("Description Too Long");
+                }else{
+                    showAlertError("Invalid Photo!");
+                }
+            }
+        });
+
         // Modal OK Button
         $('#confirm-delete').on('click', '.btn-ok', function (e) {
             var $modalDiv = $(e.delegateTarget);
@@ -271,7 +308,7 @@
      */
     window.showAlertOk = function (text) {
         $("#toastOk .toastMsg").html(text);
-        $("#toastOk").fadeIn().delay(5000).fadeOut();
+        $("#toastOk").fadeIn().delay(2000).fadeOut();
     };
     /**
      *

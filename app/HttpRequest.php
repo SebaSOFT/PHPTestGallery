@@ -58,6 +58,19 @@ class HttpRequest {
         return filter_input(INPUT_GET, $name, FILTER_SANITIZE_URL);
     }
 
+    public function getFormParam($name) {
+        return filter_input(INPUT_POST, $name, FILTER_SANITIZE_STRING);
+    }
+
+    public function getFile($name) {
+        if(isset($_FILES[$name])){
+            return $_FILES[$name];
+        }else{
+            return null;
+        }
+    }
+
+
     public function describeRequest() {
         $method = strtoupper(filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_URL));
         $p = ucfirst(trim($this->getRequestParam('p')));

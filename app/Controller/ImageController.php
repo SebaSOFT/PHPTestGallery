@@ -83,6 +83,9 @@ class ImageController extends BaseController {
     }
 
     public function addImage(HttpRequest $req, HttpResponse $res) {
+        $formFile = $req->getFile('photofile');
+        if(is_null($formFile) || !is_array($formFile)){
 
+        }
     }
 }
