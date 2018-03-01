@@ -244,6 +244,10 @@
             console.log(obj);
             $('#galleryContainer').empty().addClass('loading');
             $.each(obj, function (key, value) {
+                var descrip = '<small style="color: silver;">(No Description)</small>';
+                if (value.description) {
+                    descrip = value.description;
+                }
                 $("#galleryContainer").append(
                     '<div class="col-lg-3 col-md-4 col-sm-6">' +
                     '<img class="img-thumbnail img-fluid " ' +
@@ -255,7 +259,7 @@
                     'data-record-id="' + value.id + '" data-record-title="' + value.filename + '">\n' +
                     '  <span aria-hidden="true">&times;</span>\n' +
                     '</button>' +
-                    '<p>' + value.description + '</p></div>'
+                    '<p>' + descrip + '</p></div>'
                 );
             });
             $('#galleryContainer').removeClass('loading');

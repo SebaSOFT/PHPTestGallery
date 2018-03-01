@@ -42,6 +42,10 @@ class ImageController extends BaseController {
         $img = $db->getImage($imgId);
         if (!is_null($img)) {
             if ($db->deleteImage($imgId)) {
+                $filename = self::PHOTO_DIR . $img->getFile();
+                if (file_exists($filename)) {
+                    unlink($filename);
+                }
                 $res->send(200, "OK!");
             } else {
                 $res->send(500, "Could not delete Photo!");
@@ -76,5 +80,9 @@ class ImageController extends BaseController {
         } else {
             $res->send(404, "Image not Found!");
         }
+    }
+
+    public function addImage(HttpRequest $req, HttpResponse $res) {
+
     }
 }
