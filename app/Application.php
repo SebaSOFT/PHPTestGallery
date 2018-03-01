@@ -17,6 +17,8 @@ class Application {
 
     private $routing = [];
 
+    private $managers = [];
+
     /**
      * @var HttpRequest|null
      */
@@ -28,11 +30,17 @@ class Application {
     private $res = null;
 
     /**
+     * Application constructor.
+     */
+    public function __construct() {
+        $this->req = new HttpRequest($this);
+        $this->res = new HttpResponse($this);
+    }
+
+    /**
      *
      */
     public function start() {
-        $this->req = new HttpRequest($this);
-        $this->res = new HttpResponse($this);
 
         $this->dispatchRequest();
     }
@@ -43,6 +51,25 @@ class Application {
      */
     public function registerRoute($name, $callback) {
         $this->routing[$name] = $callback;
+    }
+
+    /**
+     * @param $name
+     * @param $manager
+     */
+    public function registerManager($name, $manager) {
+        $this->managers[$name] = $manager;
+    }
+
+    /**
+     * @param $name
+     * @return mixed|null
+     */
+    public function getManager($name) {
+        if(!isset($this->managers[$name])){
+            return null;
+        }
+        return $this->managers[$name];
     }
 
     /**

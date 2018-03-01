@@ -44,6 +44,9 @@ class HttpRequest {
             return null;
         }
         $slug = StringUtils::slugify($name);
+        if(!isset($this->headers[$slug])){
+            return null;
+        }
         return $this->headers[$slug];
     }
 

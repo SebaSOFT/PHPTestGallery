@@ -22,6 +22,20 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">Photo Gallery</a>
+        <div class="float-right">
+            <div id="toastOk" class="alert alert-success alert-dismissible" style="display:none;" role="alert">
+                <strong>Great!:</strong> <span class="toastMsg">This is a success alert—check it out!</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="toastError" class="alert alert-danger alert-dismissible" style="display:none;" role="alert">
+                <strong>Error:</strong> <span class="toastMsg">This is a danger alert—check it out!</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -39,20 +53,6 @@
                 </li>
             </ul>
         </div>
-        <div class="float-right">
-            <div id="toastOk" class="alert alert-success alert-dismissible" style="display:none;" role="alert">
-                <strong>Great!:</strong> <span class="toastMsg">This is a success alert—check it out!</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div id="toastError" class="alert alert-danger alert-dismissible" style="display:none;" role="alert">
-                <strong>Error:</strong> <span class="toastMsg">This is a danger alert—check it out!</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
     </nav>
 </header>
 
@@ -63,7 +63,7 @@
         <div id="galleryContainer" class="row">
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <img class="img-thumbnail img-fluid "
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="/?p=ShowImage&id=1"
                      style="width: 100%;"
                      alt="...">
                 <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
@@ -72,7 +72,7 @@
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <img class="img-thumbnail img-fluid "
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="/?p=ShowImage&id=1"
                      style="width: 100%;"
                      alt="...">
                 <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
@@ -81,7 +81,7 @@
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <img class="img-thumbnail img-fluid "
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="/?p=ShowImage&id=1"
                      style="width: 100%;"
                      alt="...">
                 <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
@@ -90,7 +90,7 @@
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <img class="img-thumbnail img-fluid "
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="/?p=ShowImage&id=1"
                      style="width: 100%;"
                      alt="...">
                 <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula

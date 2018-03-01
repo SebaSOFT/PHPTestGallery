@@ -27,6 +27,7 @@ class HttpResponse {
                 'value' => $arrHeader[1],
             ];
         }
+
     }
 
     /**
@@ -77,13 +78,24 @@ class HttpResponse {
         exit;
     }
 
+    public function sendFile($filename) {
+        $this->_sendHeaders();
+        $res = @readfile($filename);
+        if ($res === FALSE) {
+            die("Image not Found!");
+        } else {
+            exit;
+        }
+    }
+
     private function _sendHeaders() {
         if (headers_sent($file, $line)) {
             echo "Headers already sent in $file on line $line";
             exit;
         }
+        //die(var_export($this->headers,true));
         foreach ($this->headers as $header) {
-            header($header['name'] . " : " . $header['value'], true);
+            header($header['name'] . ": " . $header['value'], true);
         }
     }
 
