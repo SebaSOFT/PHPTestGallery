@@ -7,20 +7,10 @@
 namespace App\Controller;
 
 
-use App\Application;
 use App\HttpRequest;
 use App\HttpResponse;
 
-class ImageController {
-
-    /**
-     * @var Application|null
-     */
-    private $app = null;
-
-    public function __construct(Application $app) {
-        $this->app = $app;
-    }
+class ImageController extends BaseController {
 
     public function getAllImages(HttpRequest $req, HttpResponse $res) {
         $res->send(200,[
