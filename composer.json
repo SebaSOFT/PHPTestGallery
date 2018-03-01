@@ -1,0 +1,21 @@
+{
+  "name": "sebasoft/php-test-gallery",
+  "description": "A Simple Photo Gallery made in jQuery, Bootstrap, and plain old PHP",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Sebastian Diéguez",
+      "email": "sebasoft@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "scripts": {
+    "serve": "@php -S localhost:8000 -t public/ -d upload_max_filesize=2M"
+  }
+}

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PHP Gallery Test</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            padding-top: 65px;
+        }
+    </style>
+</head>
+<body id="bodyTop" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Photo Gallery</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#gallery">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#upload">Upload your Photo</a>
+                </li>
+            </ul>
+        </div>
+        <div class="float-right">
+            <div id="toastOk" class="alert alert-success alert-dismissible" style="display:none;" role="alert">
+                <strong>Great!:</strong> <span class="toastMsg">This is a success alert—check it out!</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="toastError" class="alert alert-danger alert-dismissible" style="display:none;" role="alert">
+                <strong>Error:</strong> <span class="toastMsg">This is a danger alert—check it out!</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main role="main">
+    <div class="container-fluid">
+        <h3 class="text-center">Photo Gallery</h3>
+        <p class="text-center"><em>These are the moments captured for ever!</em></p>
+        <div id="galleryContainer" class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <img class="img-thumbnail img-fluid "
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     style="width: 100%;"
+                     alt="...">
+                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
+                    vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
+                    cursus magna.</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <img class="img-thumbnail img-fluid "
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     style="width: 100%;"
+                     alt="...">
+                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
+                    mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                    condimentum nibh.</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <img class="img-thumbnail img-fluid "
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     style="width: 100%;"
+                     alt="...">
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                    porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+                    ut fermentum massa justo sit amet risus.</p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <img class="img-thumbnail img-fluid "
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     style="width: 100%;"
+                     alt="...">
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                    porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+                    ut fermentum massa justo sit amet risus.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="upload" class="container">
+        <h3 class="text-center">Photo Upload</h3>
+        <p class="text-center"><em>Fill our great gallery with memories of your life!</em></p>
+        <form enctype="multipart/form-data" action="__URL__" method="POST">
+            <div class="row justify-content-center">
+                <div class="col-md-8 ">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <input class="form-control" id="photofile" name="photofile" type="file"
+                                   accept=".jpg,.jpeg,.png,image/jpeg,image/png" required/>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="2048000"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                        <textarea class="form-control" id="description" name="description" placeholder="Description"
+                                  rows="5" maxlength="300" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <button class="btn pull-right" type="submit">Upload Photo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br><br>
+
+
+    <!-- FOOTER -->
+    <footer class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>Sebastian Di&eacute;guez - <a href="mailto:sebasoft@gmail.com">sebasoft@gmail.com</a> - <a
+                href="https://about.me/sebasoft" target="_blank">https://about.me/sebasoft</a></p>
+    </footer>
+</main>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
+
+<!-- My CODE
+================================================== -->
+<script>
+
+    window.gallerySpecs = {
+        url:{
+            listImages: "/?p=ListImages"
+        }
+    };
+    $(document).ready(function () {
+        console.log("ready!");
+
+        showAlertOk("Welcome!");
+
+        refreshGallery();
+        /*$("button").click(function () {
+
+        }); */
+    });
+    window.refreshGallery = function () {
+        $.getJSON(gallerySpecs.url.listImages, function (obj) {
+            console.log(obj);
+            /*$.each(obj, function (key, value) {
+                $("ul").append("<li>" + value.name + "'s age is : " + value.age + "</li>");
+            });*/
+        });
+    };
+    window.showAlertOk = function (text) {
+        $("#toastOk .toastMsg").html(text);
+        $(document).scrollTo("#toastOk");
+        $("#toastOk").fadeIn().delay(5000).fadeOut();
+    };
+    window.showAlertError = function (text) {
+        $("#toastError .toastMsg").html(text);
+        $("#toastError").fadeIn().delay(5000).fadeOut();
+        $(document).scrollTo('#toastError');
+
+    };
+</script>
+
+
+</body>
+</html>
