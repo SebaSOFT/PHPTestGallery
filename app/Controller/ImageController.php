@@ -22,9 +22,33 @@ class ImageController extends BaseController {
     }
 
     public function getAllImages(HttpRequest $req, HttpResponse $res) {
-        $res->send(200, [
-            "hola" => 1
-        ]);
+        /**
+         * @var ImageManager $db
+         */
+        $db = $this->app->getManager('image');
+        $rows = $db->listImages();
+        if (!is_array($rows)) {
+            $rows = array();
+        }
+        $res->send(200, $rows);
+    }
+
+    public function deleteImage(HttpRequest $req, HttpResponse $res) {
+        $imgId = $req->getRequestParam('id');
+        /**
+         * @var ImageManager $db
+         */
+        $db = $this->app->getManager('image');
+        $img = $db->getImage($imgId);
+        if (!is_null($img)) {
+            if ($db->deleteImage($imgId)) {
+                $res->send(200, "OK!");
+            } else {
+                $res->send(500, "Could not delete Photo!");
+            }
+        } else {
+            $res->send(404, "Image not Found!");
+        }
     }
 
     public function showImage(HttpRequest $req, HttpResponse $res) {
@@ -40,6 +64,7 @@ class ImageController extends BaseController {
             if (!file_exists($filename)) {
                 $filename = self::IMG_PLACE_HOLDER;
             }
+            //die(var_export($filename,true));
             $res->setHeader('Content-Type', mime_content_type($filename));
             $res->setHeader('Content-Length', filesize($filename));
             $res->setHeader('Last-Modified', date(DATE_RFC2822, filemtime($filename)));
@@ -47,10 +72,9 @@ class ImageController extends BaseController {
             $res->setHeader('Content-Disposition', 'inline; filename="' . $img->getFilename() . '"');
             $res->setHeader('Cache-Control', 'public');
             $res->setHeader('Expires', '0');
-            //$res->send(200,"Ready!");
             $res->sendFile($filename);
-        }else{
-            $res->send(404,"Image not Found!");
+        } else {
+            $res->send(404, "Image not Found!");
         }
     }
 }

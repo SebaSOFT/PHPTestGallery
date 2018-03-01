@@ -12,6 +12,7 @@ $app->registerManager('image', new \App\Data\ImageManager($app));
 $iController = new \App\Controller\ImageController($app);
 $app->registerRoute("GET-ListImages", [$iController, 'getAllImages']);
 $app->registerRoute("GET-ShowImage", [$iController, 'showImage']);
+$app->registerRoute("DELETE-DeleteImage", [$iController, 'deleteImage']);
 $app->registerRoute("OPTIONS-*", [new \App\Controller\CORSController($app), 'handle']);
 
 $app->start();

@@ -93,7 +93,6 @@ class HttpResponse {
             echo "Headers already sent in $file on line $line";
             exit;
         }
-        //die(var_export($this->headers,true));
         foreach ($this->headers as $header) {
             header($header['name'] . ": " . $header['value'], true);
         }

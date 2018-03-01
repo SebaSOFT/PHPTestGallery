@@ -24,26 +24,40 @@ class ImageManager extends BaseManager {
      * @return Image|null
      */
     public function getImage($id) {
-        return new Image(array(
-            'id' => $id,
-            'file' => 'non-existan.jpg',
-            'size' => 321,
-            'filename' => 'bs-file.jpg',
-            'description' => 'This is not going to be seen'
-        ));
+        $result = $this->db->querySingle(
+            'SELECT * FROM images where id = ' .
+            filter_var($id, FILTER_SANITIZE_NUMBER_INT),
+            true
+        );
+
+        if (is_null($result)) {
+            return null;
+        }
+        return $this->buildImageModel($result);
     }
 
     /**
      * @param $id
      */
     public function deleteImage($id) {
-
+        return $this->db->exec('DELETE FROM images WHERE id = ' . filter_var($id, FILTER_SANITIZE_NUMBER_INT));
     }
 
     /**
      * @return array
      */
     public function listImages() {
-        return array();
+        $res = array();
+        $stmnt = $this->db->prepare("SELECT * FROM images");
+        $results = $stmnt->execute();
+        while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
+            $res[] = $this->buildImageModel($row);
+        }
+        return $res;
+    }
+
+
+    private function buildImageModel(array $data) {
+        return new Image($data);
     }
 }
