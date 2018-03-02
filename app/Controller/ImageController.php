@@ -9,6 +9,7 @@ namespace App\Controller;
 
 use App\Application;
 use App\Data\ImageManager;
+use App\Data\Model\Image;
 use App\HttpRequest;
 use App\HttpResponse;
 
@@ -84,8 +85,60 @@ class ImageController extends BaseController {
 
     public function addImage(HttpRequest $req, HttpResponse $res) {
         $formFile = $req->getFile('photofile');
-        if(is_null($formFile) || !is_array($formFile)){
-
+        if (is_null($formFile) || !is_array($formFile)) {
+            $res->send(500, "Invalid Photo upload!");
+            return;
+        }
+        if ($formFile['error'] != 0) {
+            $uploadErrors = array(
+                1 => 'The uploaded file exceeds the upload max filesize allowed.',
+                2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+                3 => 'The uploaded file was only partially uploaded',
+                4 => 'No file was uploaded',
+                6 => 'Missing a temporary folder'
+            );
+            $res->send(500, $uploadErrors[$formFile['error']]);
+            return;
+        }
+        if (!in_array($formFile['type'], array('image/jpeg', 'image/png'))) {
+            $res->send(500, "Invalid Photo Format!");
+            return;
+        }
+        if ($formFile['size'] > 2048000) {
+            $res->send(500, "Invalid Photo File Size!");
+            return;
+        }
+        $desc = $req->getFormParam('photodesc');
+        if ($desc === '') {
+            $desc = null;
+        }
+        $uploadedFilename = basename($formFile["name"]);
+        $tmpFile = $formFile['tmp_name'];
+        $tmp = explode(".", $uploadedFilename);
+        $newfilename = time() . '_' . rand(100, 999) . '.' . mb_strtolower(end($tmp));
+        $moveRet = move_uploaded_file($tmpFile, self::PHOTO_DIR . $newfilename);
+        if (!$moveRet) {
+            $res->send(500, "Could not manipulate file!");
+            return;
+        }
+        $newImage = new Image([
+            'id' => null,
+            'file' => $newfilename,
+            'filename' => $uploadedFilename,
+            'size' => $formFile['size'],
+            'description' => $desc
+        ]);
+        /**
+         * @var ImageManager $db
+         */
+        $db = $this->app->getManager('image');
+        $insertRet = $db->addImage($newImage);
+        if ($insertRet) {
+            $res->send(200, "OK!");
+        } else {
+            @unlink(self::PHOTO_DIR . $newfilename);
+            $res->send(500, "Could not insert image into the DB!");
+            return;
         }
     }
 }
